@@ -1,5 +1,8 @@
 # HappyHouse
-아파트 실거래 매매가 제공 서비스
+아파트 실거래 매매가 조회 서비스
+
+**사용 기술**  
+HTML/CSS/JavaScript, Vue.js, Spring Boot, MySQL, Apache Tomcat, JWT, GitLab
 
 ## 주요 기능
 - 메인 화면(뉴스 크롤링)
