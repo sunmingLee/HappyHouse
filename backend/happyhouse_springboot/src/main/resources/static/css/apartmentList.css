@@ -1,0 +1,31 @@
+@charset "UTF-8";
+.content{
+	width:80%;
+	height:700px;
+	margin-left:10%;
+	margin-right:10%;
+	margin-top: 50px;
+}
+.leftSide{
+	float:left;
+	width:30%;
+	height:100%;
+	padding:30px;
+	overflow:scroll;
+}
+.rightSide{
+	float:right;
+	width:55%;
+	padding:30px;
+	height:100%;
+}
+.clear{
+	clear: both;
+}
+
+.loading{
+	width:250px;
+	height:250px;
+	margin-left:30px;
+	display: none;
+}

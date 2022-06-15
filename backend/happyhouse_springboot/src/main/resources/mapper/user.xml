@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.happyhouse.model.mapper.UserMapper">
+
+	<select id="idCheck" parameterType="string" resultType="int">
+		select
+		count(id)
+		from user
+		where id = #{id}
+	</select>
+
+	<select id="findById" parameterType="string"
+		resultType="UserDto">
+		select *
+		from user
+		where id = #{id}
+	</select>
+
+	<insert id="registerUser" parameterType="UserDto">
+		insert into user (id,
+		user_name, user_password, user_email, user_tel, roles, address,
+		aboutme)
+		values (#{id}, #{user_name},
+		#{user_password}, #{user_email},
+		#{user_tel}, #{roles} ,#{address},
+		#{aboutme})
+	</insert>
+
+	<select id="login" parameterType="map" resultType="UserDto">
+		select *
+		from
+		user
+		where id = #{user_id} and user_password = #{user_password}
+	</select>
+
+	<update id="updateUser" parameterType="UserDto">
+		update user
+		<trim prefix="set" suffixOverrides=",">
+			<if test="user_password != null">user_password = #{user_password},</if>
+			<if test="user_name != null">user_name = #{user_name},</if>
+			<if test="user_email != null">user_email = #{user_email},</if>
+			<if test="user_tel != null">user_tel = #{user_tel},</if>
+			<if test="address != null">address = #{address},</if>
+			<if test="aboutme != null">aboutme = #{aboutme}</if>
+		</trim>
+		where id = #{id}
+	</update>
+
+	<delete id="deleteUser" parameterType="String">
+		delete from user
+		where id =
+		#{id}
+	</delete>
+
+</mapper>

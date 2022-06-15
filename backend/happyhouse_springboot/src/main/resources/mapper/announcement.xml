@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.happyhouse.model.mapper.AnnouncementMapper">
+
+	<select id="findAnnouncement" parameterType="Integer"
+		resultType="AnnouncementDto">
+		select announcementNo,userid,subject,content,regtime
+		from
+		announcement
+		order by
+		announcementNo desc
+		<!-- limit #{pageNum},5 -->
+	</select>
+
+	<select id="announcementInfo" parameterType="Integer"
+		resultType="AnnouncementDto">
+		select announcementNo,userid,subject,content, regtime
+		from
+		announcement where announcementNo = #{announcementNum}
+	</select>
+
+	<insert id="writeAnnouncement" parameterType="AnnouncementDto">
+		insert into
+		announcement(userid, subject, content)
+		values (#{userid},#{subject},
+		#{content})
+	</insert>
+
+	<update id="modifyAnnouncement" parameterType="AnnouncementDto">
+		update
+		announcement
+		set
+		subject = #{subject},
+		userid = #{userid},
+		content =
+		#{content}
+		where
+		announcementNo = #{announcementNo}
+	</update>
+
+	<delete id="deleteAnnouncement" parameterType="int">
+		delete
+		from
+		announcement
+		where announcementNo = #{announcementNo}
+	</delete>
+
+</mapper>

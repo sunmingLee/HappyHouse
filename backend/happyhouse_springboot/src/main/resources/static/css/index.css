@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+.main_content{
+	height:800px;
+}
+
+.news>a{
+	margin-left:20px;
+	margin-top:10px;
+}

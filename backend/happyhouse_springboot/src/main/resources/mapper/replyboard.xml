@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.happyhouse.model.mapper.ReplyBoardMapper">
+
+	<select id="replyBoardList" resultType="ReplyBoardDto">
+		select articleno,
+		subject, content, ref, step, depth, user_id, regdate
+		from replyboard
+		order by ref desc
+	</select>
+
+	<select id="getReplyBoard" parameterType="Integer"
+		resultType="ReplyBoardDto">
+		select b.articleno, b.subject, b.content, b.ref, b.step,
+		b.depth, a.user_id as author, b.regdate, b.user_id from replyboard a
+		join replyboard b on a.articleno = b.ref where b.articleno =
+		#{articleno};
+	</select>
+
+
+	<insert id="addFirstReplyBoard" parameterType="ReplyBoardDto"
+		useGeneratedKeys="true" keyProperty="articleno">
+		insert into
+		replyboard (subject,
+		content, step, ref, depth, user_id, regdate)
+		values
+		(#{subject},
+		#{content}, #{step}, 0 , #{depth},#{user_id}, now())
+	</insert>
+
+	<update id="modifyReplyBoardRef" parameterType="ReplyBoardDto">
+		update replyboard
+		set ref = #{articleno}
+		where articleno = #{articleno}
+	</update>
+
+	<insert id="addReplyBoard" parameterType="hashMap">
+		insert into replyboard
+		(subject, content, ref, step, depth, user_id, regdate)
+		values
+		(#{current.subject}, #{current.content}, #{origin.ref}, #{origin.step}
+		+ 1, #{origin.depth} + 1, #{current.user_id}, now())
+	</insert>
+
+	<update id="modifyReplyBoard" parameterType="ReplyBoardDto">
+		update replyboard
+		set subject = #{subject}, content = #{content}
+		where articleno =
+		#{articleno}
+	</update>
+
+	<delete id="deleteReplyBoard" parameterType="Integer">
+		delete from
+		replyboard
+		where articleno = #{articleno}
+	</delete>
+
+	<delete id="deleteReplyBoardCascade" parameterType="Integer">
+		delete from
+		replyboard
+		where ref = #{articleno}
+	</delete>
+
+
+</mapper>
